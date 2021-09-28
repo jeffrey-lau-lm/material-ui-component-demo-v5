@@ -27,7 +27,6 @@ import {
   ListItemIcon,
   ListItemText,
   Radio,
-  Switch,
   TextField,
   Tab,
   Tabs,
@@ -47,8 +46,6 @@ import {
   Delete,
   Person,
   Menu,
-  Brightness3 as Moon,
-  Brightness5 as Sun,
 } from "@mui/icons-material";
 
 import useTheme from "./theme/use-theme";
@@ -181,7 +178,6 @@ export default function App() {
   const [checked, setChecked] = React.useState([0]);
   const [inputColor, setInputColor] = React.useState("secondary");
   const [value, setValue] = React.useState(0);
-  const toggleThemePreference = () => setLightTheme(!lightTheme);
 
   const theme = useTheme();
 
