@@ -48,8 +48,10 @@ import {
   Menu,
 } from "@mui/icons-material";
 
-import useTheme from "./theme/use-theme";
 
+import {portalTheme} from './theme/portal-theme'
+
+;
 const ICONS = [
   { key: "add", icon: <Add />, size: "small" },
   { key: "edit", icon: <Edit />, size: "medium" },
@@ -179,7 +181,7 @@ export default function App() {
   const [inputColor, setInputColor] = React.useState("secondary");
   const [value, setValue] = React.useState(0);
 
-  const theme = useTheme();
+  const theme = portalTheme;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

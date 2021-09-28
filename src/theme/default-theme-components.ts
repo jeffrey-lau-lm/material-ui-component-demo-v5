@@ -1,31 +1,42 @@
-import { rgba } from "polished";
+import { Theme } from '@mui/material'
+import { rgba } from 'polished'
 
-const overrides = (theme: object) => {
+export const createDefaultThemeComponents: (
+  theme: Theme,
+) => Theme['components'] = (theme) => {
   const {
     palette,
     shape: { borderRadius },
-  } = theme;
+    components,
+  } = theme
+
+  const isLightTheme = palette.mode === 'light'
 
   return {
+    ...components,
     // Global Styles
     MuiCssBaseline: {
-        styleOverrides: {
-          "@global": {
-            svg: {
-              display: "block",
-            },
+      styleOverrides: {
+        '@global': {
+          svg: {
+            display: 'block',
           },
-      }
+        },
+      },
     },
 
     // Sorted alphabetically (A -> Z) from this point forward
+    MuiAlert: {
+      defaultProps: {
+        variant: isLightTheme ? 'standard' : 'filled',
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         colorDefault: {
           backgroundColor: palette.background.paper,
           color: palette.text.primary,
         },
-        // display:'none !important',
         root:{
           '&.MuiAppBar-colorPrimary':{
             '& .MuiTabs-indicator':{
@@ -43,10 +54,14 @@ const overrides = (theme: object) => {
           }
         }
      
-    
       }
     },
     MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+        variant: 'contained',
+      },
+
       styleOverrides: {
         textSecondary: {
           color: palette.secondary.dark,
@@ -54,7 +69,7 @@ const overrides = (theme: object) => {
         contained: {
           backgroundColor: palette.grey[200],
 
-          "&:hover": {
+          '&:hover': {
             backgroundColor: palette.grey[300],
           },
         },
@@ -65,63 +80,53 @@ const overrides = (theme: object) => {
           color: palette.secondary.dark,
           borderColor: palette.secondary.dark,
         },
-      }
+      },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 10,
+          borderRadius: theme.spacing(0.5),
         },
-      }
+      },
     },
     MuiCheckbox: {
       styleOverrides: {
         colorSecondary: {
-          "&.Mui-checked": {
+          '&$checked': {
             color: palette.secondary.dark,
           },
         },
         checked: {},
-      }
-    },
-    MuiFab: {
-      styleOverrides: {
-        root: {
-          backgroundColor: palette.grey[200],
-          borderRadius: "25%",
-
-          "&:hover": {
-            backgroundColor: palette.grey[300],
-          },
-        },
-      }
+      },
     },
     MuiFilledInput: {
       styleOverrides: {
         root: {
           borderRadius,
           backgroundColor: rgba(palette.grey[900], 0.04),
-          border: `1px solid ${palette.grey[100]}`,
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: palette.grey[100],
 
-          "&:hover": {
+          '&:hover': {
             backgroundColor: rgba(palette.grey[900], 0.08),
             // Reset on touch devices, it doesn't add specificity
-            "@media (hover: none)": {
+            '@media (hover: none)': {
               backgroundColor: rgba(palette.grey[900], 0.04),
             },
           },
-          "&.Mui-focused": {
+          '&.Mui-focused': {
             borderColor: palette.primary.main,
             borderWidth: 1,
             boxShadow: `inset 0 0 0 1px ${palette.primary.main}`,
           },
         },
         underline: {
-          "&:before": {
-            content: "none",
+          '&:before': {
+            content: 'none',
           },
-          "&:after": {
-            content: "none",
+          '&:after': {
+            content: 'none',
           },
           // TODO: use theme.palette.secondary for underline
         },
@@ -139,7 +144,7 @@ const overrides = (theme: object) => {
           },
         },
         focused: {},
-      }
+      },
     },
     MuiFormLabel: {
       styleOverrides: {
@@ -157,23 +162,22 @@ const overrides = (theme: object) => {
     MuiInput: {
       styleOverrides: {
         colorSecondary: {
-          "&$underline:after": {
+          '&$underline:after': {
             borderBottomColor: palette.secondary.dark,
           },
-        }
-      }
+        },
+      },
     },
     MuiIconButton: {
       styleOverrides: {
         colorSecondary: {
           color: palette.secondary.dark,
-        }
-      }
+        },
+      },
     },
     MuiOutlinedInput: {
       styleOverrides: {
         colorSecondary: {
-          // .css-z0xjgo-MuiInputBase-root-MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
             borderColor: palette.secondary.dark,
           },
@@ -182,7 +186,7 @@ const overrides = (theme: object) => {
         notchedOutline: {
           borderColor: palette.text.secondary,
         },
-      }
+      },
     },
     MuiRadio: {
       styleOverrides: {
@@ -190,15 +194,37 @@ const overrides = (theme: object) => {
           "&.Mui-checked": {
             color: palette.secondary.dark,
           },
-        }
-      }
+        },
+        checked: {},
+      },
     },
     MuiTab: {
       styleOverrides: {
         textColorSecondary: {
           "&.Mui-selected": {
-         
             color: palette.secondary.dark,
+          },
+        },
+      },
+    },
+    MuiTextField: {
+      defaultProps: {
+        variant: 'filled',
+      },
+    },
+    MuiUseMediaQuery: {
+      defaultProps: {
+        noSsr: true,
+      },
+    },
+    MuiFab: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.grey[200],
+          borderRadius: "25%",
+
+          "&:hover": {
+            backgroundColor: palette.grey[300],
           },
         },
       }
@@ -236,7 +262,5 @@ const overrides = (theme: object) => {
         }
       }
     }
-  };
-};
-
-export default overrides;
+  }
+}
