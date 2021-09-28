@@ -37,44 +37,59 @@ export const createDefaultThemeComponents: (
           backgroundColor: palette.background.paper,
           color: palette.text.primary,
         },
-        root:{
-          '&.MuiAppBar-colorPrimary':{
-            '& .MuiTabs-indicator':{
-              backgroundColor: palette.secondary.main
+        root: {
+          '&.MuiAppBar-colorPrimary': {
+            '& .MuiTabs-indicator': {
+              backgroundColor: palette.secondary.main,
             },
             '& .MuiTab-textColorPrimary': {
-              color:'white !important',
-              opacity:'0.7',
-             
-              '&.Mui-selected':{
-                opacity:'1'
-              }
-            }
-                
-          }
-        }
-     
-      }
+              color: 'white !important',
+              opacity: '0.7',
+
+              '&.Mui-selected': {
+                opacity: '1',
+              },
+            },
+          },
+        },
+      },
     },
     MuiButton: {
       defaultProps: {
         disableElevation: true,
         variant: 'contained',
       },
-
+      variants: [
+        'primary',
+        'secondary',
+        'success',
+        'error',
+        'info',
+        'warning',
+      ].map((c: String) => ({
+        props: { variant: 'contained', color: c },
+        style: {
+          color: 'white',
+          backgroundColor: palette[c].main,
+        },
+      })),
       styleOverrides: {
         textSecondary: {
           color: palette.secondary.dark,
         },
         contained: {
           backgroundColor: palette.grey[200],
-
           '&:hover': {
             backgroundColor: palette.grey[300],
           },
         },
+        containedPrimary: {
+          color: 'white',
+          backgroundColor: palette.primary.main,
+        },
         containedSecondary: {
           // TODO: Pressed style needs work
+          color: `${palette.primary.main} !important`,
         },
         outlinedSecondary: {
           color: palette.secondary.dark,
@@ -131,14 +146,14 @@ export const createDefaultThemeComponents: (
           // TODO: use theme.palette.secondary for underline
         },
         colorSecondary: {
-          "&:hover": {
+          '&:hover': {
             backgroundColor: rgba(palette.grey[900], 0.08),
             // Reset on touch devices, it doesn't add specificity
-            "@media (hover: none)": {
+            '@media (hover: none)': {
               backgroundColor: rgba(palette.grey[900], 0.04),
             },
           },
-          "&.Mui-focused": {
+          '&.Mui-focused': {
             borderColor: palette.secondary.dark,
             boxShadow: `inset 0 0 0 1px ${palette.secondary.dark}`,
           },
@@ -149,15 +164,15 @@ export const createDefaultThemeComponents: (
     MuiFormLabel: {
       styleOverrides: {
         colorSecondary: {
-          "&.Mui-focused": {
+          '&.Mui-focused': {
             color: palette.secondary.dark,
           },
         },
         filled: {
-          mixBlendMode: "multiply",
+          mixBlendMode: 'multiply',
         },
         focused: {},
-      }
+      },
     },
     MuiInput: {
       styleOverrides: {
@@ -178,7 +193,7 @@ export const createDefaultThemeComponents: (
     MuiOutlinedInput: {
       styleOverrides: {
         colorSecondary: {
-          "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
             borderColor: palette.secondary.dark,
           },
         },
@@ -191,7 +206,7 @@ export const createDefaultThemeComponents: (
     MuiRadio: {
       styleOverrides: {
         colorSecondary: {
-          "&.Mui-checked": {
+          '&.Mui-checked': {
             color: palette.secondary.dark,
           },
         },
@@ -201,7 +216,7 @@ export const createDefaultThemeComponents: (
     MuiTab: {
       styleOverrides: {
         textColorSecondary: {
-          "&.Mui-selected": {
+          '&.Mui-selected': {
             color: palette.secondary.dark,
           },
         },
@@ -221,46 +236,46 @@ export const createDefaultThemeComponents: (
       styleOverrides: {
         root: {
           backgroundColor: palette.grey[200],
-          borderRadius: "25%",
+          borderRadius: '25%',
 
-          "&:hover": {
+          '&:hover': {
             backgroundColor: palette.grey[300],
           },
         },
-      }
+      },
     },
-    MuiToggleButton:{
+    MuiToggleButton: {
       styleOverrides: {
-        root:{
-          color:  palette.text.secondary,
-          "&.Mui-selected":{
+        root: {
+          color: palette.text.secondary,
+          '&.Mui-selected': {
             color: 'rgba(0, 0, 0, 0.54)',
-            backgroundColor: 'rgba(0, 0, 0, 0.12)'
-          }          
-        }
-      }
+            backgroundColor: 'rgba(0, 0, 0, 0.12)',
+          },
+        },
+      },
     },
-    MuiTabs:{
-      defaultProps:{
-        textColor:"inherit" 
-      }
+    MuiTabs: {
+      defaultProps: {
+        textColor: 'inherit',
+      },
     },
-    MuiImageList:{
+    MuiImageList: {
       styleOverrides: {
-        root:{
+        root: {
           // display:"none",
-          marginBlock:0,
-          "& li.MuiImageListItem-root":{
-            height:'224px !important',
-            "& img":{
-                left: '50%',
-                height: '100%',
-                position: 'relative',
-                transform: 'translateX(-50%)'
-            }
-          }
-        }
-      }
-    }
+          marginBlock: 0,
+          '& li.MuiImageListItem-root': {
+            height: '224px !important',
+            '& img': {
+              left: '50%',
+              height: '100%',
+              position: 'relative',
+              transform: 'translateX(-50%)',
+            },
+          },
+        },
+      },
+    },
   }
 }
